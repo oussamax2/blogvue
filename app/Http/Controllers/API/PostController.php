@@ -15,8 +15,8 @@ class PostController extends Controller
     // all posts
     public function index()
     {
-        $posts = Post::all()->toArray();
-        return array_reverse($posts);
+        $posts = Post::paginate(5);
+        return response()->json($posts);
     }
 
     // add post

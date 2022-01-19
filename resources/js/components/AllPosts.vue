@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="post in posts" :key="post.id">
+            <tr v-for="post in posts.data" :key="post.id">
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.description }}</td>
@@ -30,25 +30,38 @@
             </tr>
             </tbody>
         </table>
+
+
+  <pagination align="center" :data="posts" @pagination-change-page="getResults"></pagination>
     </div>
+
+
+
 </template>
 
 <script>
     export default {
         data() {
             return {
-                posts: []
+                posts: [],
+
             }
         },
         created() {
-            this.axios
-                .get('http://localhost:8000/api/posts')
-                .then(response => {
-                    this.posts = response.data;
-                });
+     this.getResults();
         },
         methods: {
-
+  getResults(page) {
+            if (typeof page === "undefined") {
+        page = 1;
+      }
+      this.axios
+        .get("http://localhost:8000/api/posts?page=" + page)
+        .then(response => {
+          this.posts = response.data;
+          console.log(posts);
+        });
+        },
             deletePost(id){
 
            this.$swal.fire({
@@ -72,6 +85,11 @@
   }
 });
         }
-        }
+        },
+    computed: {
+      rows() {
+        return this.posts.length
+      }
+    }
     }
 </script>

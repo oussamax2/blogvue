@@ -6,10 +6,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
+import pagination from 'laravel-vue-pagination'
 Vue.use(VueSweetalert2);
 
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 window.Vue = require('vue');
 
@@ -21,7 +21,7 @@ import {routes} from './routes';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue,pagination);
 
 const router = new VueRouter({
     mode: 'history',
