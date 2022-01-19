@@ -10,7 +10,15 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <input type="text" class="form-control" v-model="post.description">
+
+                         <select name="category_id" @change="onChange($event)" class="form-control" v-model="post.description">
+                            <option>--- Select Category ---</option>
+                            <option value="1">USA</option>
+                            <option value="2">India</option>
+                            <option value="3">Bangladesh</option>
+                            <option value="4">England</option>
+
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Post</button>
                 </form>
@@ -36,8 +44,18 @@
                         // console.log(response.data)
                     ))
                     .catch(error => console.log(error))
-                    .finally(() => this.loading = false)
+
+               .finally(() => this.loading = false)
             }
+            ,
+         onChange(event) {
+              var optionValue = event.target.value;
+              var optionText = event.target.options[event.target.options.selectedIndex].text;
+          //  this.post.description = optionText;
+              console.log(optionText);
+              console.log(optionValue);}
+
         }
+
     }
 </script>

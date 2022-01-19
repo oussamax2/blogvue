@@ -5283,6 +5283,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5303,6 +5311,13 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         return _this.loading = false;
       });
+    },
+    onChange: function onChange(event) {
+      var optionValue = event.target.value;
+      var optionText = event.target.options[event.target.options.selectedIndex].text; //  this.post.description = optionText;
+
+      console.log(optionText);
+      console.log(optionValue);
     }
   }
 });
@@ -5320,6 +5335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -63664,27 +63680,58 @@ var render = function () {
             _c("div", { staticClass: "form-group" }, [
               _c("label", [_vm._v("Description")]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.post.description,
-                    expression: "post.description",
-                  },
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.post.description },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.post, "description", $event.target.value)
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post.description,
+                      expression: "post.description",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "category_id" },
+                  on: {
+                    change: [
+                      function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.post,
+                          "description",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function ($event) {
+                        return _vm.onChange($event)
+                      },
+                    ],
                   },
                 },
-              }),
+                [
+                  _c("option", [_vm._v("--- Select Category ---")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("USA")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("India")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [
+                    _vm._v("Bangladesh"),
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "4" } }, [_vm._v("England")]),
+                ]
+              ),
             ]),
             _vm._v(" "),
             _c(
@@ -63782,10 +63829,22 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _c("pagination", {
-        attrs: { align: "center", data: _vm.posts },
-        on: { "pagination-change-page": _vm.getResults },
-      }),
+      _c(
+        "pagination",
+        {
+          attrs: { align: "center", data: _vm.posts },
+          on: { "pagination-change-page": _vm.getResults },
+        },
+        [
+          _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+            _vm._v("< Previous"),
+          ]),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+            _vm._v("Next >"),
+          ]),
+        ]
+      ),
     ],
     1
   )

@@ -32,7 +32,8 @@
         </table>
 
 
-  <pagination align="center" :data="posts" @pagination-change-page="getResults"></pagination>
+  <pagination align="center" :data="posts" @pagination-change-page="getResults"><span slot="prev-nav">&lt; Previous</span>
+    <span slot="next-nav">Next &gt;</span></pagination>
     </div>
 
 
